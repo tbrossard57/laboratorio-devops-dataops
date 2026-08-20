@@ -1,4 +1,4 @@
-﻿pipeline {
+pipeline {
 
     agent any
 
@@ -23,7 +23,7 @@
             }
         }
 
-        stage('Validación final') {
+        stage('Validacion final') {
             steps {
                 echo 'Pipeline ejecutado correctamente'
             }
