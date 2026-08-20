@@ -1,32 +1,23 @@
-pipeline {
+node {
 
-    agent any
+    stage('Checkout') {
+        checkout scm
+    }
 
-    stages {
+    stage('Validar Python') {
+        bat 'python --version'
+    }
 
-        stage('Validar Python') {
-            steps {
-                bat 'python --version'
-            }
-        }
+    stage('Instalar dependencias') {
+        bat 'pip install pandas'
+        bat 'pip install psycopg2-binary'
+    }
 
-        stage('Instalar dependencias') {
-            steps {
-                bat 'pip install pandas'
-                bat 'pip install psycopg2-binary'
-            }
-        }
+    stage('Ejecutar procesamiento') {
+        bat 'python scripts/procesamiento.py'
+    }
 
-        stage('Ejecutar procesamiento') {
-            steps {
-                bat 'python scripts/procesamiento.py'
-            }
-        }
-
-        stage('Validacion final') {
-            steps {
-                echo 'Pipeline ejecutado correctamente'
-            }
-        }
+    stage('Validacion final') {
+        echo 'Pipeline ejecutado correctamente'
     }
 }
